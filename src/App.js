@@ -1,12 +1,26 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Login from './Login';
+import Dashboard from './Dashboard';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [route, setRoute] = useState("login");
+
+  const onRoutechange=(page)=>{
+    setRoute(page);
+  }
+
+    console.log(route)
+
   return (
-    <div className="App">
-      Hiiiii
+    <div>
+      {
+        route === "login"?
+        <Login onRoutechange={onRoutechange} />:
+        <Dashboard />
+      }
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
