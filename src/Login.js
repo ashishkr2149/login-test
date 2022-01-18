@@ -12,10 +12,12 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { TestState } from './TestContext';
 
 const theme = createTheme();
 
-const Login = ({ onRoutechange }) => {
+const Login = () => {
+	const{ route, setRoute } = TestState();
 	return (
 		<ThemeProvider theme={theme}>
     	  <Grid container component="main"
@@ -74,7 +76,7 @@ const Login = ({ onRoutechange }) => {
     	            fullWidth
     	            variant="contained"
     	            sx={{ mt: 3, mb: 2, backgroundColor: 'brown' }}
-    	            onClick={() => onRoutechange("home")}
+    	            onClick={() => setRoute("home")}
     	          >
     	            Sign In
     	          </Button>

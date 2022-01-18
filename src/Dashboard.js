@@ -1,5 +1,6 @@
 import React,{ useState } from 'react'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -21,6 +22,8 @@ import { mainListItems, secondaryListItems } from './listitems';
 import Chart from './Chart';
 import Data from './Data';
 import Description from './Description';
+import { TestState } from './TestContext';
+import CreateUser from './CreateUser';
 
 const drawerWidth = 240;
 
@@ -74,10 +77,10 @@ const mdTheme = createTheme({
   palette: {
     type: 'dark',
     primary: {
-      main: '#424242',
+      main: '#fff',
     },
     secondary: {
-      main: '#f48fb1',
+      main: '#424242',
     },
     background: {
       default: '#424242',
@@ -106,6 +109,7 @@ const mdTheme = createTheme({
 
 const Dashboard = () => {
 const [open, setOpen] = useState(true);
+const{ route, setRoute } = TestState();
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -137,10 +141,28 @@ const [open, setOpen] = useState(true);
               variant="h6"
               color="inherit"
               noWrap
-              sx={{ flexGrow: 1 }}
+              sx={{ flexGrow: 1,cursor: 'pointer' }}
+              onClick={()=>{setRoute("home")}}
             >
               Dashboard
             </Typography>
+            {route==='home'?<Button
+                            variant="contained"
+                            sx={[
+                                { mr: 2,
+                                  color: '#fff',
+                                  backgroundColor: (theme) =>
+                                  theme.palette.secondary.main },
+                                (theme) => ({
+                                  '&:hover': {
+                                    backgroundColor: '#636363',
+                                  },
+                                }),
+                              ]}
+                          onClick={() => setRoute("create")}
+                          >
+                            Create User
+                        </Button>:<></>}
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MessageIcon />
@@ -187,41 +209,49 @@ const [open, setOpen] = useState(true);
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Data />
-                </Paper>
-              </Grid>
-              {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Description />
-                </Paper>
-              </Grid>
-            </Grid>
-          </Container>
+          {
+            route ==="home"?
+              <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} md={8} lg={9}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: 240,
+                        borderRadius: '10px',
+                        boxShadow: '4px 4px 8px 0 rgba( 0, 0, 0, .2 )'
+                      }}
+                    >
+                      <Chart />
+                    </Paper>
+                  </Grid>
+                  {/* Recent Deposits */}
+                  <Grid item xs={12} md={4} lg={3}>
+                    <Paper
+                      sx={{
+                        p: 2,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: 240,
+                        borderRadius: '10px',
+                        boxShadow: '4px 4px 8px 0 rgba( 0, 0, 0, .2 )'
+                      }}
+                    >
+                      <Data />
+                    </Paper>
+                  </Grid>
+                  {/* Recent Orders */}
+                  <Grid item xs={12}>
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column', borderRadius: '10px',boxShadow: '4px 4px 8px 0 rgba( 0, 0, 0, .2 )' }}>
+                      <Description />
+                    </Paper>
+                  </Grid>
+                </Grid>
+              </Container>:
+          <CreateUser />
+          }
         </Box>
       </Box>
     </ThemeProvider>

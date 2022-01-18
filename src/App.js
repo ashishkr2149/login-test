@@ -1,22 +1,19 @@
 import React, { useState } from 'react';
 import Login from './Login';
 import Dashboard from './Dashboard';
+import CreateUser from './CreateUser';
+import { TestState } from './TestContext';
 import './App.css';
 
 const App = () => {
-  const [route, setRoute] = useState("login");
-
-  const onRoutechange=(page)=>{
-    setRoute(page);
-  }
-
+  const{ route, setRoute } = TestState();
     console.log(route)
 
   return (
     <div>
       {
         route === "login"?
-        <Login onRoutechange={onRoutechange} />:
+        <Login />:
         <Dashboard />
       }
     </div>
