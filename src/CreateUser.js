@@ -22,8 +22,8 @@ const CreateUser = () => {
     	  		justifyContent: 'center',
     	  		marginRight: 'auto',
     	  		marginLeft: 'auto',
-    	  		marginTop: '5%',
-    	  		marginBottom: '5%',
+    	  		marginTop: '3%',
+    	  		marginBottom: '3%',
     	  		boxShadow: '4px 4px 8px 0 rgba( 0, 0, 0, .2 )',
     	  		borderRadius: '10px',
     	  	}}>
@@ -42,8 +42,10 @@ const CreateUser = () => {
     	    >
     	      <Box
     	        sx={{
-    	          my: 4,
-    	          mx: 4,
+    	          mt: 2,
+    	          mx: 2,
+    	          px: 2,
+    	          py: 2,
     	          display: 'flex',
     	          flexDirection: 'column',
     	          alignItems: 'center',
@@ -87,6 +89,15 @@ const CreateUser = () => {
     	            label="Password"
     	            type="password"
     	            id="password"
+    	          />
+    	          <TextField
+    	            margin="normal"
+    	            required
+    	            fullWidth
+    	            name="phone_no"
+    	            label="Phone No"
+    	            type="numeric"
+    	            id="phone_no"
     	          />
     	          <Box sx={{
     	   		  	display: 'flex',
