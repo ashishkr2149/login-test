@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{ useEffect } from 'react'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,11 +13,28 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { TestState } from './TestContext';
+import axios from 'axios';
 
 const theme = createTheme();
 
 const Login = () => {
-	const{ route, setRoute } = TestState();
+	const{ route, setRoute, token, setToken, refreshToken, setRrefreshToken } = TestState();
+
+	const postLogin = () => {
+		axios.post('http://devenv.pustakey.com:1048/users/login', {
+    		'id':'9929999991',
+    		'password':'1Qw@'
+			})
+			.then(function (response) {
+				console.log(response.data.token);
+		    	setToken(response.data.token);
+		    	setRrefreshToken(response.data.refreshToken);
+			})
+			.catch(function (error) {
+				console.log(error);
+		});
+	}
+
 	return (
 		<ThemeProvider theme={theme}>
     	  <Grid container component="main"
@@ -76,7 +93,10 @@ const Login = () => {
     	            fullWidth
     	            variant="contained"
     	            sx={{ mt: 3, mb: 2, backgroundColor: 'brown' }}
-    	            onClick={() => setRoute("home")}
+    	            onClick={() => {
+    	            	postLogin();
+    	            	setRoute("home");
+    	            }}
     	          >
     	            Sign In
     	          </Button>
